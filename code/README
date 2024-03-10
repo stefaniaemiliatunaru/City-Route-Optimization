@@ -1,0 +1,75 @@
+Tunaru Stefania Emilia 311CB
+README
+SDA Tema3
+
+
+- functii.c -
+
+TGL* AlocG(int nr) -> functia aloca spatiu pentru descriptor de graf si pentru un vector de nr + 1 adrese de liste de arce. Se aloca spatiu pentru un graf,
+verificandu-se alocarea acestuia, dupa care se aloca spatiu pentru vectorul de adrese. In cazul in care alocarea vectorului nu reuseste, se elibereaza memoria
+ocupata de graf si se returneaza NULL. Functia returneaza graful.
+
+void DistrG(TGL** ag) -> functia distruge graful si elibereaza memoria ocupata de acesta. Functia parcurge graful si elibereaza vectorul de adrese al fiecarui
+nod, dupa care elibereaza memoria ocupata de nod, de graf si seteaza pointerul la graf la NULL.
+
+TGL* CitGraf(char matrice[OMIE][OSUTA]) -> functia citeste un graf, avand ca parametru o matrice de caractere. Se deschide fisierul din care se face citirea,
+dupa care se verifica deschiderea cu succes a acestuia. Se citesc numarul nodurilor si numarul arcelor, dupa care este alocat un graf, verificandu-se alocarea
+acestuia. Se parcurg arcele grafului, citindu-se pentru fiecare dintre acestea sursa, destinatia si costul. Se atribuie o codificare numerica sursei si 
+destinatiei cu ajutorul functiei auxiliare (codificare), dupa care sunt parcursi vectorii de adrese ale sursei si destinatiei pana la ultimul element,
+adaugandu-se nodul curent si caracteristicile acestuia. Se inchide fisierul de intrare, returnandu-se graful construit.
+
+int codificare(char matrice[OMIE][OSUTA], int* contor, char sir[OSUTA]) -> functia primeste ca parametri matricea de caractere, contorul codificarilor si sirul
+ce reprezinta nodul ce trebuie codificat numeric. Functia parcurge codficarile, verificand daca sirul primit ca parametru are deja atribuita o codificare, caz
+in care este returnata codificarea respectiva. Altfel, se creeaza o noua codificare care este salvata in matricea de caractere si este returnata.
+
+void DFS(int nr_noduri, AArc vector[OSUTA], int nod, int vizitat[OSUTA]) -> functia de parcurgere in adancime a grafului. Aceasta primeste drept parametri
+numarul de noduri ale grafului, vectorul de adrese ale unui nod, un nod de la care vrem sa plecam cu parcurgerea si un vector in care marcam nodurile vizitate. 
+Se marcheaza nodul primit ca parametru drept vizitat, dupa care se parcurg recursiv nodurile nevizitate pornind de la nodul dat.
+
+void CompConex(TGL *g) -> functia afiseaza numarul componentelor conexe ale grafului si suma costurilor minime ale parcurgerii acestor componente. 
+Se deschide fisierul de iesire, dupa care este initializat vectorul in care se marcheaza nodurile vizitate, si cel in care se vor retine sumele costurilor 
+minime. Se parcurg toate nodurile grafului, iar in cazul in care nodul curent nu a fost vizitat se apeleaza functia de parcurgere in adancime, identificandu-se
+astfel o componenta conexa a grafului. Se apeleaza functia de calculare a costului minim a componentei conexe, suma ce va fi retinuta in vectorul vector_sume
+(vectorul sumelor costurilor minime) si creste numarul componentelor conexe ale grafului. Este afisat numarul componentelor conexe, dupa care este sortat
+vectorul sumelor si este afisat. Se inchide fisierul de iesire.
+
+int DistantaMinima(int* vizitate, int* distante, int nr_noduri) -> functia returneaza nodul cu costul minim. Functia primeste ca parametri vectorul ce retine
+nodurile vizitate, vectorul distantelor si numarul de noduri ale grafului. Sunt parcurse nodurile grafului, iar in cazul in care nodul curent nu a fost vizitat,
+iar distanta acestuia este mai mica decat minimul actual, se actualizeaza minimul, si se actualieaza nodul cu distanta minima. Functia returneaza nodul cu
+distanta minima.
+
+int Prim(int nod, TGL* g) -> functia primeste ca parametri un nod si graful, si returneaza suma minima a costurilor parcurgerii unei componente conexe. Se
+aloca vectorii distante si vizitate si se initializeaza elementele acestora. Se parcurg nodurile grafului, aflandu-se nodul cu distanta minima cu ajutorul
+functiei definite anterior. Se parcurge vectorul de adrese al nodului cu distanta minima, iar daca nodul curent este nevizitat si are costul mai mic decat
+costul curent, se actualizeaza costul minim. Se calculeaza suma minima a componentei conexe prin parcurgerea vectorului distante, verificandu-se daca costul
+curent a fost actualizat anterior si adunandu-se in variabila suma_minima. Se elibereaza memoria ocupata de vectorii distante si vizitate si se returneaza suma
+costurilor minime. 
+
+TGL2* AlocG2(int nr) -> functia aloca spatiu pentru descriptor de graf si pentru un vector de nr + 1 adrese de liste de arce. Se aloca spatiu pentru un graf,
+verificandu-se alocarea acestuia, dupa care se aloca spatiu pentru vectorul de adrese. In cazul in care alocarea vectorului nu reuseste, se elibereaza memoria
+ocupata de graf si se returneaza NULL. Functia returneaza graful orientat.
+
+void DistrG2(TGL2** ag) -> functia distruge graful si elibereaza memoria ocupata de acesta. Functia parcurge graful si alibereaza vectorul de adrese al fiecarui
+nod, dupa care elibereaza memoria ocupata de nod, de graf si seteaza pointerul la graf la NULL.
+
+TGL2* CitGraf2(char matrice[OMIE][OSUTA], int *greutate) -> functia citeste un graf, avand ca parametru o matrice de caractere si greutatea de transportat. Se deschide
+fisierul din care se face citirea, dupa care se verifica deschiderea cu succes a acestuia. Se citesc numarul nodurilor si numarul arcelor, dupa care este alocat un graf
+orientat, verificandu-se alocarea acestuia. Se parcurg arcele grafului, citindu-se pentru fiecare dintre acestea sursa, destinatia si costul. Se atribuie o codificare
+numerica sursei si destinatiei cu ajutorul functiei auxiliare (codificare), dupa care este parcurs vectorul de adrese al sursei a pana la ultimul element,
+adaugandu-se nodul curent si caracteristicile acestuia. Este alocat vectorul de adancimi, dupa care sunt parcurse nodurile grafului, se citesc adancimile si se
+atribuie adancimea nodului corespunzator. Se citeste greutatea, dupa care se inchide fisierul de intrare, returnandu-se graful construit.
+
+int ScorMinim(int* vizitat, float* scor, int nr_noduri) -> functia returneaza nodul cu scorul minim. Functia primeste ca parametri vectorul ce retine
+nodurile vizitate, vectorul scorurilor si numarul de noduri ale grafului. Sunt parcurse nodurile grafului, iar in cazul in care nodul curent nu a fost vizitat,
+iar scorul acestuia este mai mic decat minimul actual, se actualizeaza minimul, si se actualieaza nodul cu scorul minim. Functia returneaza nodul cu scorul minim.
+
+void Dijkstra(int nod, TGL2* g, char matrice[OMIE][OSUTA], int greutate) -> Functia primeste ca parametri un nod, graful orientat, matricea de caractere si greutatea
+care trebuie trasnportata. Se deschide fisierul de iesire, si se verifica deschiderea acestuia, dupa care sunt alocatie vectorii scor, distante, vizitat in care se vor
+contoriza nodurile vizitate, si vectorul de tati care va fi folosit pentru afisarea drumului. Codific numeric nodurile grafului, dupa care initializez vectorii alocati
+anterior. Codific numeric nodul "Corabie", dupa care parcurg nodurile grafului, folosind functia auxiliara ScorMinim pentru a afla nodul cu scorul minim, si marcand
+nodul drept vizitat. Parcurg vectorul de arce al nodului cu scorul minim, calculand scorul curent, si actualizandu-l corespunzator. De asemenea, actualizez vectorul
+care calculeaza distanta parcursa si actualizez vectorul de tati folosit in afisare. Verific cazul in care nu exista drum de la corbaie la insula, afisand mesajul
+corespunzator acestui caz si eliberand memoria alocata anterior. Repet procesul explicat anterior, dupa care verific cazul in care nu exista niciun drum de la insula
+la corabie, caz in care afisez mesajul corespunzator si eliberez memoria alocata anterior. Aflu adancimea minima, in timp ce inversez vectorul de tati pentru afisarea
+drumului de la insula la corabie. In cele din urma, afisez drumul de la insula la corabie cu ajutorul matricei de caractere, dupa care afisez costul total al drumului,
+adancimea minima si numarul de drumuri ce trebuie efectuate pentru transportul comorii. Eliberez memoria alocata anterior si inchid fisierul de iesire.
